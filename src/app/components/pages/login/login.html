@@ -1,0 +1,34 @@
+<div class="min-h-screen bg-cover bg-no-repeat bg-[url('/assets/images/homepage.png')]">
+    <div class="p-8 text-white flex flex-col items-center justify-center h-[70vh]">
+        <div class="text-center mb-8">
+            <h1 class="text-4xl font-bold">Welcome to My Recipe App!</h1>
+            <p class="mt-4 text-lg">Discover, share, and enjoy delicious recipes from around the world.</p>
+        </div>
+        <div class="card bg-neutral text-neutral-content w-96 opacity-90">
+            <div class="card-body items-center text-center">
+                <h2 class="card-title">Login</h2>
+                <form [formGroup]="loginForm" class="w-full max-w-xs">
+                    <fieldset class="fieldset">
+                        <label for="email" class="label">Email</label>
+                        <input formControlName="email" id="email" type="text" class="input text-black" placeholder="Email" />
+                        <label for="password" class="label">Password</label>
+                        <input formControlName="password" id="password" type="password" class="input text-black"
+                            placeholder="Password" />
+
+                        <p class="text-right mt-2"><a href="/forgot-password" class="text-warning cursor-pointer">reset
+                                your password</a></p>
+
+                        <button class="btn btn-warning mt-2 w-full cursor-pointer" type="submit"
+                            (click)="onSubmit()">Login</button>
+                        <p class="mt-4">Don't have an account? <a href="/register"
+                                class="text-warning cursor-pointer">Register here</a></p>
+                        <!-- <p class="mt-4">Or login with:</p>
+                        <div class="flex justify-center mt-2">
+                            <button class="btn btn-primary mr-2" type="button">Google</button>
+                        </div> -->
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
