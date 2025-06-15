@@ -1,7 +1,18 @@
 import { Injectable } from '@angular/core';
-import { Auth, browserSessionPersistence, GoogleAuthProvider, setPersistence, signInWithEmailAndPassword, signInWithPopup, User, user, UserCredential } from '@angular/fire/auth';
-import { IUserLogin } from '@core/models/user.model';
+import { Auth, user } from '@angular/fire/auth';
+import { IUserLogin, IUserRegister } from '@core/models/user.model';
 import { from, Observable } from 'rxjs';
+import { doc, Firestore, setDoc } from '@angular/fire/firestore';
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  GoogleAuthProvider,
+  setPersistence,
+  browserSessionPersistence,
+  User,
+  UserCredential,
+} from 'firebase/auth';
 
 @Injectable({
   providedIn: 'root'
@@ -11,15 +22,16 @@ export class AuthService {
   public user$!: Observable<User | null>;
 
   constructor(
-    private readonly firebaseAuth: Auth
+    private readonly firebaseAuth: Auth,
+    private readonly firestore: Firestore
   ) {
     this.user$ = user(this.firebaseAuth);
     this.setSessionStoragePersistence();
   }
 
-  private setSessionStoragePersistence(): void {
+  private async setSessionStoragePersistence(): Promise<void> {
     try {
-      setPersistence(this.firebaseAuth, browserSessionPersistence);
+      await setPersistence(this.firebaseAuth, browserSessionPersistence);
     } catch (error) {
       console.error('Error setting session storage persistence:', error);
     }
@@ -53,5 +65,27 @@ export class AuthService {
     console.log('Google login successful:', user);
     return user;
 
+  }
+
+  public async onRegister(userData: IUserRegister): Promise<User> {
+    try {
+      const UserCredential = await createUserWithEmailAndPassword(this.firebaseAuth, userData.email, userData.password);
+      if (!UserCredential.user) {
+        throw new Error('Registration failed: No user returned');
+      }
+      const userDataToSave = {
+        name: userData.name,
+        email: userData.email,
+        uid: UserCredential.user.uid,
+        createdAt: new Date().toISOString()
+      };
+
+      await setDoc(doc(this.firestore, `users/${UserCredential.user.uid}`), userDataToSave)
+
+      return UserCredential.user;
+    } catch (error) {
+      console.error('Registration error:', error);
+      throw error;
+    }
   }
 }

@@ -76,13 +76,15 @@
                             placeholder="Password" />
                         @if (userRegisterForm.get('password')?.hasError('required') && isformSubmitted()) {
                         <div class="text-xs text-left text-red-500">{{`Password is required`}}</div>
+                        } @else if (userRegisterForm.get('password')?.hasError('minlength') && isformSubmitted()) {
+                        <div class="text-xs text-left text-red-500">{{`Password must be at least 6 characters`}}</div>
                         }
                         <label for="confirmPassword" class="label font-medium text-black">Confirm Password</label>
                         <input formControlName="confirmPassword" id="confirmPassword" type="password" class="input"
                             placeholder="Confirm password" />
                         @if (userRegisterForm.get('confirmPassword')?.hasError('required') && isformSubmitted()) {
                         <div class="text-xs text-left text-red-500">{{`Confirm password is required`}}</div>
-                        } @else if (userRegisterForm.hasError('mismatch')) {
+                        } @else if (userRegisterForm.hasError('mismatch') && isformSubmitted()) {
                         <div class="text-xs text-left text-red-500">{{`Passwords do not match`}}</div>
                         }
 
