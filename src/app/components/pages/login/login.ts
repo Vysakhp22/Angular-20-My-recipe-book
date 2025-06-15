@@ -1,5 +1,6 @@
 import { Component, signal, WritableSignal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router, RouterOutlet } from '@angular/router';
 import { REGEX } from '@core/constants/regex.constants';
 import { AuthService } from '@core/services/auth-service';
 
@@ -17,8 +18,10 @@ export class Login {
     password: new FormControl('', [Validators.required])
   });
 
-  constructor(public readonly authService: AuthService) {
-  }
+  constructor(
+    public readonly authService: AuthService,
+    public readonly router: Router,
+  ) { }
 
   protected onSubmit() {
     this.isformSubmitted.set(true);

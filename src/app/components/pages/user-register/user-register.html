@@ -1,6 +1,6 @@
 <div class="min-h-screen bg-cover bg-no-repeat bg-[url('/assets/images/homepage.png')]">
-    <div class="p-8 text-white flex flex-col items-center justify-center h-[70vh]">
-        <div class="card bg-[#cacfd2] text-black w-96 opacity-90">
+    <div class="p-8 flex flex-col items-center justify-center w-full h-[80vh]">
+        <div class="card bg-[#cacfd2] w-96 opacity-90">
             <div class="card-body items-center text-center">
                 <svg fill="#000000" height="64px" width="64px" version="1.1" id="Layer_1"
                     xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -55,45 +55,43 @@
                         </g>
                     </g>
                 </svg>
-                <h1 class="text-4xl font-bold">My Recipe Book</h1>
-                <form [formGroup]="loginForm" class="w-full max-w-xs">
+                <h1 class="text-3xl font-bold">{{`Creat your recipe book account` | titlecase }}</h1>
+                <form [formGroup]="userRegisterForm" class="w-full max-w-xs">
                     <fieldset class="fieldset">
-                        
-                        <input formControlName="email" id="email" type="text" class="input mt-4" placeholder="Email" />
-                        @if (loginForm.get('email')?.hasError('required') && isformSubmitted()) {
+                       <label for="fullname" class="label font-medium text-black">Fullname</label>
+                        <input formControlName="name" id="fullname" type="text" class="input" placeholder="Fullname" />
+                        @if (userRegisterForm.get('name')?.hasError('required') && isformSubmitted()) {
+                        <div class="text-xs text-left text-red-500">{{`Fullname is required`}}</div>
+                        } 
+                        <label for="email" class="label font-medium text-black">Email</label>
+                        <input formControlName="email" id="email" type="text" class="input" placeholder="Email" />
+                        @if (userRegisterForm.get('email')?.hasError('required') && isformSubmitted()) {
                         <div class="text-xs text-left text-red-500">{{`Email is required`}}</div>
-                        } @else if (loginForm.get('email')?.hasError('pattern') && isformSubmitted()) {
+                        } @else if (userRegisterForm.get('email')?.hasError('pattern') && isformSubmitted()) {
                         <div class="text-xs text-left text-red-500"> {{`Email is invalid`}}</div>
                         }
 
-                        <input formControlName="password" id="password" type="password" class="input mt-4"
+                        <label for="password" class="label font-medium text-black">Password</label>
+                        <input formControlName="password" id="password" type="password" class="input"
                             placeholder="Password" />
-                        @if (loginForm.get('password')?.hasError('required') && isformSubmitted()) {
+                        @if (userRegisterForm.get('password')?.hasError('required') && isformSubmitted()) {
                         <div class="text-xs text-left text-red-500">{{`Password is required`}}</div>
                         }
+                        <label for="confirmPassword" class="label font-medium text-black">Confirm Password</label>
+                        <input formControlName="confirmPassword" id="confirmPassword" type="password" class="input"
+                            placeholder="Confirm password" />
+                        @if (userRegisterForm.get('confirmPassword')?.hasError('required') && isformSubmitted()) {
+                        <div class="text-xs text-left text-red-500">{{`Confirm password is required`}}</div>
+                        } @else if (userRegisterForm.hasError('mismatch')) {
+                        <div class="text-xs text-left text-red-500">{{`Passwords do not match`}}</div>
+                        }
 
-                        <p class="text-right mt-2">
-                            <a href="/forgot-password" class="text-[#2e86c1] cursor-pointer">reset your password</a>
-                        </p>
-
-                        <button class="btn btn-success w-full cursor-pointer login-button" type="submit"
-                            (click)="onSubmit()">
-                            Login
+                        <button class="btn btn-success w-full cursor-pointer mt-4" type="submit" (click)="onSubmit()">
+                            Sign Up
                         </button>
-                        <p class="mt-4">Or login with:</p>
-                        <div class="flex justify-center mt-2">
-                            <button class="btn btn-primary mr-2 google-btn" type="button" (click)="googleLogin()">
-                                <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
-                                    alt="Google" />
-                                Continue with Google
-                            </button>
-                        </div>
+                        
                     </fieldset>
                 </form>
-                <p class="mt-4">
-                    Don't have an account?
-                    <a href="javascript:void(0)" class="text-[#2e86c1] cursor-pointer" (click)="router.navigate(['/', 'register'])">Register here</a>
-                </p>
             </div>
         </div>
     </div>
