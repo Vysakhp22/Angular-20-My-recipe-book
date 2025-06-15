@@ -1,9 +1,11 @@
 import { Component, signal, WritableSignal } from '@angular/core';
+import { FirebaseError } from '@angular/fire/app';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { REGEX } from '@core/constants/regex.constants';
 import { ToastColor } from '@core/models/toast.model';
 import { AuthService } from '@core/services/auth-service';
+import { FirebaseErrorHandlerService } from '@core/services/firebase-error-handler-service';
 import { ToastService } from '@core/services/toast-service';
 
 @Component({
@@ -23,7 +25,8 @@ export class Login {
   constructor(
     public readonly authService: AuthService,
     public readonly router: Router,
-    private readonly toastService: ToastService
+    private readonly toastService: ToastService,
+    private readonly firebaseErrorHandler: FirebaseErrorHandlerService
   ) { }
 
   protected onSubmit() {
@@ -49,8 +52,8 @@ export class Login {
           type: ToastColor.success
         });
       },
-      error: (error) => {
-        console.error('Login failed:', error);
+      error: (error: FirebaseError) => {
+        this.firebaseErrorHandler.handle(error, 'Login failed. Please check your credentials and try again.');
         // Handle login error, e.g., show an error message
       }
     });

@@ -3,7 +3,9 @@ import { Component, signal, WritableSignal } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { REGEX } from '@core/constants/regex.constants';
+import { ToastColor } from '@core/models/toast.model';
 import { AuthService } from '@core/services/auth-service';
+import { ToastService } from '@core/services/toast-service';
 
 @Component({
   selector: 'app-user-register',
@@ -26,21 +28,26 @@ export class UserRegister {
     password: new FormControl('', [Validators.required, Validators.minLength(6)]),
     confirmPassword: new FormControl('', [Validators.required, Validators.minLength(6)])
   }, { validators: this.passwordMatchValidator });
+
+
   protected isformSubmitted: WritableSignal<boolean> = signal(false);
 
 
   constructor(
     public readonly auth: AuthService,
-    private readonly router: Router
-  ) {
+    private readonly router: Router,
+    private readonly toast: ToastService
+  ) { }
 
-  }
-
-  // Add methods for handling registration logic, form submission, etc.
-  onSubmit() {
+  public onSubmit() {
     this.isformSubmitted.set(true);
     if (this.userRegisterForm.invalid) {
-      console.error('Form is invalid');
+      this.toast.showToast(
+        {
+          type: ToastColor.warning,
+          message: 'Please fill in all required fields correctly.'
+        }
+      );
       return;
     }
     this.auth.onRegister({
