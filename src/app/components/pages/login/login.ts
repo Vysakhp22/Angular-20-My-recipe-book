@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { REGEX } from '@core/constants/regex.constants';
 
 @Component({
   selector: 'app-login',
@@ -10,7 +11,7 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 export class Login {
 
   protected loginForm = new FormGroup({
-    email: new FormControl('', [Validators.email, Validators.required]),
+    email: new FormControl('', [Validators.required, Validators.pattern(REGEX.email)]),
     password: new FormControl('', [Validators.required])
   });
 
