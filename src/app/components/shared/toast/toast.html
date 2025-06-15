@@ -1,0 +1,7 @@
+@if(toast()){
+<div class="toast toast-center">
+    <div class="alert text-black" [ngClass]="toastClasses">
+        <span>{{toast()?.message}}</span>
+    </div>
+</div>
+}

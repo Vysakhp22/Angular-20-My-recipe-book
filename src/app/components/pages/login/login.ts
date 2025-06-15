@@ -2,7 +2,9 @@ import { Component, signal, WritableSignal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { REGEX } from '@core/constants/regex.constants';
+import { ToastColor } from '@core/models/toast.model';
 import { AuthService } from '@core/services/auth-service';
+import { ToastService } from '@core/services/toast-service';
 
 @Component({
   selector: 'app-login',
@@ -21,12 +23,16 @@ export class Login {
   constructor(
     public readonly authService: AuthService,
     public readonly router: Router,
+    private readonly toastService: ToastService
   ) { }
 
   protected onSubmit() {
     this.isformSubmitted.set(true);
     if (this.loginForm.invalid) {
-      console.error('Form is invalid');
+      this.toastService.showToast({
+        message: 'Please fill in all required fields correctly.',
+        type: ToastColor.warning
+      });
       return;
     }
     // Handle form submission logic here
@@ -38,7 +44,10 @@ export class Login {
     this.authService.login(formData).subscribe({
       next: (userCredential) => {
         console.log('Login successful:', userCredential);
-        // Handle successful login, e.g., redirect to dashboard
+        this.toastService.showToast({
+          message: 'Login successful!',
+          type: ToastColor.success
+        });
       },
       error: (error) => {
         console.error('Login failed:', error);
