@@ -1,4 +1,5 @@
 import { inject, Injectable } from '@angular/core';
+import { FirebaseError } from '@angular/fire/app';
 import { ToastColor } from '@core/models/toast.model';
 import { ToastService } from '@services/toast-service';
 
@@ -9,6 +10,7 @@ export class FirebaseErrorHandlerService {
 
   private toastService = inject(ToastService);
 
+  // #TODO: Need to check if this is the best way to handle errors
   private getFriendlyMessage(code: string): string | null {
     const errorMap: { [key: string]: string } = {
       // Auth errors
@@ -31,7 +33,7 @@ export class FirebaseErrorHandlerService {
     return errorMap[code] || null;
   }
 
-  public handle(error: any, fallbackMessage = 'An unexpected error occurred') {
+  public handle(error: FirebaseError | any, fallbackMessage = 'An unexpected error occurred') {
     const message = this.getFriendlyMessage(error?.code) || fallbackMessage;
     this.toastService.showToast({
       message: message,

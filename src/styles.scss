@@ -1,4 +1,4 @@
-@use "tailwindcss";
-@plugin "daisyui" {
-  themes: light --default;
-}
+@use "./tailwind.css";
+
+// Importing common styles
+@use "./scss/common.scss" as *;
