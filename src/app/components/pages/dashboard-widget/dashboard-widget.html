@@ -1,22 +1,33 @@
-<div class="grid grid-cols-2 gap-4 md:grid-cols-4 mb-4">
+<div class="grid grid-cols-2 gap-6 md:grid-cols-4 mb-4">
+    <!-- Card 1 with gradient -->
     <div
-        class="bg-[#73c6b6] text-white p-4 rounded-lg shadow text-center h-36 flex flex-col justify-center items-center">
+        class="bg-gradient-to-r from-teal-400 to-green-200 text-white p-4 rounded-lg shadow text-center h-36 flex flex-col justify-center items-center transform transition duration-300 hover:shadow-lg hover:scale-105">
         <div class="text-6xl font-bold" appCountup [targetValue]="10">10</div>
         <div class="text-lg">Total Recipes</div>
     </div>
-    <div class="bg-white p-4 rounded-lg shadow text-center h-36 flex flex-col justify-center items-center">
-        <div class="text-6xl font-bold text-gray-800" appCountup [targetValue]="4">4</div>
+
+    <!-- Card 2 -->
+    <div
+        class="bg-white p-4 rounded-lg shadow text-center h-36 flex flex-col justify-center items-center text-gray-800 transform transition duration-300 hover:shadow-lg hover:scale-105">
+        <div class="text-6xl font-bold" appCountup [targetValue]="4">4</div>
         <div class="text-lg text-gray-600">Categories</div>
     </div>
-    <div class="bg-white p-4 rounded-lg shadow text-center h-36 flex flex-col justify-center items-center">
-        <div class="text-6xl font-bold text-gray-800" appCountup [targetValue]="3">3</div>
+
+    <!-- Card 3 -->
+    <div
+        class="bg-white p-4 rounded-lg shadow text-center h-36 flex flex-col justify-center items-center text-gray-800 transform transition duration-300 hover:shadow-lg hover:scale-105">
+        <div class="text-6xl font-bold" appCountup [targetValue]="3">3</div>
         <div class="text-lg text-gray-600">Favorites</div>
     </div>
-    <div class="bg-white p-4 rounded-lg shadow text-center h-36 flex flex-col justify-center items-center">
-        <div class="text-6xl font-bold text-gray-800" appCountup [targetValue]="5">5</div>
+
+    <!-- Card 4 -->
+    <div
+        class="bg-white p-4 rounded-lg shadow text-center h-36 flex flex-col justify-center items-center text-gray-800 transform transition duration-300 hover:shadow-lg hover:scale-105">
+        <div class="text-6xl font-bold" appCountup [targetValue]="5">5</div>
         <div class="text-lg text-gray-600">Meal Plans</div>
     </div>
 </div>
+
 
 <!--  This button is for creating a new recipe. -->
 <div
