@@ -51,6 +51,8 @@ export class Login {
           message: 'Login successful!',
           type: ToastColor.success
         });
+        // Redirect to dashboard or another page after successful login
+        this.router.navigate(['/dashboard']);
       },
       error: (error: FirebaseError) => {
         this.firebaseErrorHandler.handle(error, 'Login failed. Please check your credentials and try again.');
@@ -64,6 +66,11 @@ export class Login {
     this.authService.googleLoginAsync().then(user => {
       console.log('Google login successful:', user);
       // Handle successful Google login, e.g., redirect to dashboard
+      this.toastService.showToast({
+        message: 'Google login successful!',
+        type: ToastColor.success
+      });
+      this.router.navigate(['/dashboard']);
     }).catch(error => {
       console.error('Google login failed:', error);
       // Handle Google login error, e.g., show an error message
