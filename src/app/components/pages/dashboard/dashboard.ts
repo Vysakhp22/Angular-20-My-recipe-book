@@ -6,8 +6,7 @@ import { DashbroardWidget } from "../dashbroard-widget/dashbroard-widget";
 @Component({
   selector: 'app-dashboard',
   imports: [RouterLinkActive, RouterLink, DashbroardWidget],
-  templateUrl: './dashboard.html',
-  styleUrl: './dashboard.scss'
+  templateUrl: './dashboard.html'
 })
 export class Dashboard {
 
