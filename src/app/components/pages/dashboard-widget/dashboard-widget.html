@@ -1,1 +1,34 @@
-<p>dashboard-widget works!</p>
+<div class="grid grid-cols-2 gap-4 md:grid-cols-4 mb-4">
+    <div
+        class="bg-[#73c6b6] text-white p-4 rounded-lg shadow text-center h-36 flex flex-col justify-center items-center">
+        <div class="text-6xl font-bold" appCountup [targetValue]="10">10</div>
+        <div class="text-lg">Total Recipes</div>
+    </div>
+    <div class="bg-white p-4 rounded-lg shadow text-center h-36 flex flex-col justify-center items-center">
+        <div class="text-6xl font-bold text-gray-800" appCountup [targetValue]="4">4</div>
+        <div class="text-lg text-gray-600">Categories</div>
+    </div>
+    <div class="bg-white p-4 rounded-lg shadow text-center h-36 flex flex-col justify-center items-center">
+        <div class="text-6xl font-bold text-gray-800" appCountup [targetValue]="3">3</div>
+        <div class="text-lg text-gray-600">Favorites</div>
+    </div>
+    <div class="bg-white p-4 rounded-lg shadow text-center h-36 flex flex-col justify-center items-center">
+        <div class="text-6xl font-bold text-gray-800" appCountup [targetValue]="5">5</div>
+        <div class="text-lg text-gray-600">Meal Plans</div>
+    </div>
+</div>
+
+<!--  This button is for creating a new recipe. -->
+<div
+    class="inline-block p-[4px] rounded-lg bg-gradient-to-r from-[#1abc9c] via-[#3498db] to-[#a3e4d7] hover:from-[#45b39d] hover:to-[#3498db] transition-all duration-500">
+    <button
+        class="bg-[#73c6b6] hover:bg-[#45b39d] text-white p-4 rounded-lg shadow-md w-72 h-20 flex justify-center items-center cursor-pointer transition-all duration-300">
+        <span class="text-lg flex items-center gap-2">
+            <svg class="w-8 h-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+            </svg>
+            New Recipe
+        </span>
+    </button>
+</div>
