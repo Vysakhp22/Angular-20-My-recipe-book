@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { UserRegister } from "../user-register/user-register";
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import { DashbroardWidget } from "../dashbroard-widget/dashbroard-widget";
+import { DashboardWidget } from "../dashboard-widget/dashboard-widget";
+
 
 @Component({
   selector: 'app-dashboard',
-  imports: [RouterLinkActive, RouterLink, DashbroardWidget],
+  imports: [RouterLinkActive, RouterLink, DashboardWidget],
   templateUrl: './dashboard.html'
 })
 export class Dashboard {
