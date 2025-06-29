@@ -1,5 +1,4 @@
 import { Directive, effect, ElementRef, input, OnDestroy, Renderer2 } from '@angular/core';
-import { Subject } from 'rxjs';
 
 @Directive({
   selector: '[appCountup]',
