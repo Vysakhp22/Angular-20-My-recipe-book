@@ -5,7 +5,6 @@ import { Subject } from 'rxjs';
   selector: '[appCountup]',
 })
 export class Countup implements OnDestroy {
-  private readonly destroy$ = new Subject<void>();
   private animationFrameId: number | null = null;
 
   public readonly targetValue = input<number>(0);
@@ -57,10 +56,5 @@ export class Countup implements OnDestroy {
     if (this.animationFrameId !== null) {
       cancelAnimationFrame(this.animationFrameId);
     }
-    this.destroy$.next();
-    this.destroy$.complete();
   }
-
-
-
 }
