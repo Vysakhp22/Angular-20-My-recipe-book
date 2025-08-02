@@ -1,0 +1,28 @@
+<div class="w-full max-w-md bg-white mx-auto relative p-4">
+  <!-- Header -->
+  <div class="mb-4">
+    <h2 class="text-xl font-bold text-[#4a3f35]">Add Category</h2>
+  </div>
+
+  <!-- Close Button -->
+  <div class="absolute top-2 right-2">
+    <button
+      class="w-8 h-8 flex items-center justify-center bg-gray-100 hover:bg-gray-200 rounded-full transition transform active:scale-95 focus:outline-none"
+      (click)="closeDialog()" aria-label="Close" title="Close">
+      <svg class="w-4 h-4 text-gray-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+  </div>
+
+  <!-- Input and Save -->
+  <div class="flex items-center gap-2 mb-5">
+    <input type="text"
+      class="flex-1 border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#4a3f35] transition"
+      placeholder="Enter category name" [(ngModel)]="categoryName" />
+    <button
+      class="px-4 py-2 bg-[#4a3f35] text-white text-sm font-semibold rounded-lg transition transform active:scale-95 hover:bg-[#3a312a] focus:outline-none">
+      Save
+    </button>
+  </div>
+</div>
