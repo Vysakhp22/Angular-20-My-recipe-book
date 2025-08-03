@@ -1,6 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { addDoc, collection, collectionData, deleteDoc, doc, Firestore, getDocs, query, Timestamp, where } from '@angular/fire/firestore';
-import { from, Observable, of, Subscriber, switchMap } from 'rxjs';
+import { ApiResponse } from '@core/models/base-response.model';
+import { catchError, from, map, Observable, of, Subscriber, switchMap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -32,15 +33,15 @@ export class CategoryService {
   }
 
 
-  public addCategoryAsync(categoryName: string): Observable<{ success?: boolean; id?: string; error?: string; details?: any; }> {
+  public addCategoryAsync(categoryName: string): Observable<ApiResponse<{ id?: string }>> {
     if (!categoryName) {
-      return of({ error: 'Category name cannot be empty' });
+      return of({ success: false, error: 'Category name cannot be empty' });
     }
 
     return from(this.checkIfCategoryExists(categoryName)).pipe(
       switchMap((result) => {
         if (result.exists) {
-          return of({ error: 'Category already exists' });
+          return of({ success: false, error: 'Category already exists' });
         }
 
         const categoryRef = collection(this.fireStore, CategoryService.collectionName);
@@ -51,28 +52,36 @@ export class CategoryService {
           updatedAt: Timestamp.now(),
         };
 
-        return new Observable((observer: Subscriber<{ success?: boolean, id?: string, error?: string, details?: any }>) => {
+        return new Observable((observer: Subscriber<ApiResponse<{ id?: string, details?: any }>>) => {
           addDoc(categoryRef, categoryData)
             .then(docRef => {
-              observer.next({ success: true, id: docRef.id });
+              observer.next({ success: true, data: { id: docRef.id } });
               observer.complete();
             })
             .catch(error => {
-              observer.error({ error: 'Failed to add category', details: error });
+              observer.next({ success: false, error: 'Failed to add category', details: error });
+              observer.complete();
             });
         });
+      }),
+      catchError((error) => {
+        return of({ success: false, error: 'An error occurred while adding category', details: error });
       })
     );
   }
 
-  public getCategoriesAsync(): Observable<any[]> {
+  public getCategoriesAsync(): Observable<ApiResponse<any[]>> {
     const categoriesCollection = collection(this.fireStore, CategoryService.collectionName);
-    return collectionData(categoriesCollection, { idField: 'id' });
+    return collectionData(categoriesCollection, { idField: 'id' }).pipe(map(categories => {
+      return { success: true, data: categories };
+    }), catchError(error => {
+      return of({ success: false, error: 'Failed to fetch categories', details: error });
+    }));
   }
 
-  public deleteCategoryAsync(categoryId: string): Observable<{ success?: boolean; error?: string; details?: any }> {
+  public deleteCategoryAsync(categoryId: string): Observable<ApiResponse> {
     if (!categoryId) {
-      return of({ error: 'Category ID cannot be empty' });
+      return of({ error: 'Category ID cannot be empty', success: false });
     }
     const categoryDocRef = doc(this.fireStore, 'categories', categoryId);
 
@@ -83,7 +92,8 @@ export class CategoryService {
           observer.complete();
         })
         .catch(error => {
-          observer.error({ error: 'Failed to delete category', details: error });
+          observer.error({ error: 'Failed to delete category', details: error, success: false });
+          observer.complete();
         });
     });
 
