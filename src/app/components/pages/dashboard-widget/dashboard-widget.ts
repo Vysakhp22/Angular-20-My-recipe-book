@@ -1,4 +1,4 @@
-import { Component, effect, inject, OnInit, resource, signal } from '@angular/core';
+import { Component, effect, inject, OnInit, signal } from '@angular/core';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { Countup } from '@core/directives/countup';
