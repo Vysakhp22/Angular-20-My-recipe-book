@@ -32,7 +32,7 @@
 <!--  This button is for creating a new recipe. -->
 <div
     class="inline-block p-[4px] rounded-lg bg-gradient-to-r from-[#1abc9c] via-[#3498db] to-[#a3e4d7] hover:from-[#45b39d] hover:to-[#3498db] transition-all duration-500">
-    <button
+    <button (click)="openAddRecipeDialog()"
         class="bg-[#73c6b6] hover:bg-[#45b39d] text-white p-4 rounded-lg shadow-md w-72 h-20 flex justify-center items-center cursor-pointer transition-all duration-300 active:scale-95 active:shadow-inner active:bg-[#3a8a7a] transform">
         <span class="text-lg flex items-center gap-2 active:scale-95 transition-transform duration-150">
             <svg class="w-8 h-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -89,7 +89,7 @@
                     <span>Dinner</span>
                 </li>
                 <li>
-                    <button (click)="openDialog()"
+                    <button (click)="openAddCategoryDialog()"
                         class="flex items-center gap-2 w-full px-3 py-2 border border-dashed border-blue-500 text-blue-600 rounded-md hover:bg-blue-50 transition">
                         <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
                             <circle cx="12" cy="12" r="10" fill="white" />

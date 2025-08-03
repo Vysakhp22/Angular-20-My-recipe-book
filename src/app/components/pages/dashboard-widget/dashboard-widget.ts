@@ -8,6 +8,7 @@ import { CategoryService } from '@core/services/category-service';
 import { ToastService } from '@core/services/toast-service';
 import { ToastColor } from '@core/models/toast.model';
 import { ApiResponse } from '@core/models/base-response.model';
+import { AddRecipe } from '../add-recipe/add-recipe';
 
 @Component({
   selector: 'app-dashboard-widget',
@@ -44,7 +45,7 @@ export class DashboardWidget implements OnInit {
     // this.getCategoriesCount();
   }
 
-  protected openDialog(): void {
+  protected openAddCategoryDialog(): void {
     this.dialog.open(AddCategory, {
       width: '500px',
       height: 'auto',
@@ -52,12 +53,23 @@ export class DashboardWidget implements OnInit {
       data: {},
       disableClose: true,
       autoFocus: false,
-    })
-      .afterClosed().subscribe((result: boolean) => result ? this.categories.reload() : null);
+    }).afterClosed().subscribe((result: boolean) => result ? this.categories.reload() : null);
   }
 
   protected categories = rxResource<ApiResponse, undefined>({
     stream: () => this.categoryService.getCategoriesAsync()
   });
+
+  protected openAddRecipeDialog = (): void => {
+    this.dialog.open(AddRecipe, {
+      width: '500px',
+      height: 'auto',
+      panelClass: 'custom-dialog-container',
+      data: {},
+      disableClose: true,
+      autoFocus: false,
+    })
+    // .afterClosed().subscribe((result: boolean) => result ? this.categories.reload() : null);
+  }
 
 }
