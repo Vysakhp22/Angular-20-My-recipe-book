@@ -63,29 +63,7 @@ protected closeDialog = (refresh = false): void => {
       // Handle form submission
       console.log(this.recipeForm.value);
       this.closeDialog(true);
-    } else {
-      // Mark all fields as touched to show validation errors
-      // this.markFormGroupTouched(this.recipeForm);
     }
   }
-
-  // private markFormGroupTouched(formGroup: FormGroup): void {
-  //   Object.keys(formGroup.controls).forEach(key => {
-  //     const control = formGroup.get(key);
-  //     control?.markAsTouched();
-
-  //     if (control instanceof FormGroup) {
-  //       this.markFormGroupTouched(control);
-  //     } else if (control instanceof FormArray) {
-  //       control.controls.forEach(arrayControl => {
-  //         if (arrayControl instanceof FormGroup) {
-  //           this.markFormGroupTouched(arrayControl);
-  //         } else {
-  //           arrayControl.markAsTouched();
-  //         }
-  //       });
-  //     }
-  //   });
-  // }
 
 }
