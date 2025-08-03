@@ -18,20 +18,20 @@
     <form autocomplete="off" [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
         <div class="flex flex-col gap-2 mb-5">
 
-            <input type="text"
-                class="w-full border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#4a3f35] transition"
+            <input appValidationHighlight type="text"
+                class="w-full border rounded-lg px-4 py-2 text-sm focus:outline-none   transition"
                 placeholder="Enter recipe name" formControlName="title" />
 
             <div class="w-full flex items-center gap-2">
-                <select formControlName="category"
-                    class="select border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#4a3f35] transition">
+                <select appValidationHighlight formControlName="category"
+                    class="select border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none transition">
                     <option value="" disabled selected>Pick a category</option>
                     @for (item of dialogData.categories; track $index) {
                     <option [value]="item.id">{{ item.name }}</option>
                     }
                 </select>
-                <input type="text" formControlName="duration"
-                    class="border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#4a3f35] transition"
+                <input appValidationHighlight type="text" formControlName="duration"
+                    class="border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none transition"
                     placeholder="Enter cooking time" />
             </div>
 
@@ -56,11 +56,11 @@
                         </svg>
                     </button>
                     }
-                    <input type="text" formControlName="name"
-                        class="flex-1 border border-gray-300 rounded-lg px-2 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-[#4a3f35] transition"
+                    <input appValidationHighlight type="text" formControlName="name"
+                        class="flex-1 border border-gray-300 rounded-lg px-2 py-2 text-xs focus:outline-none transition"
                         placeholder="Ingredient" />
-                    <input type="text" formControlName="quantity"
-                        class="w-40 border border-gray-300 rounded-lg px-2 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-[#4a3f35] transition"
+                    <input appValidationHighlight type="text" formControlName="quantity"
+                        class="w-40 border border-gray-300 rounded-lg px-2 py-2 text-xs focus:outline-none transition"
                         placeholder="Quantity" />
                 </div>
                 }
@@ -76,8 +76,9 @@
                 <span class="font-medium">Add Ingedients</span>
             </button> -->
 
-            <textarea class="textarea" placeholder="Enter recipe instructions" formControlName="instructions" rows="8"
-                class="w-full border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#4a3f35] transition"></textarea>
+            <textarea appValidationHighlight class="textarea" placeholder="Enter recipe instructions"
+                formControlName="instructions" rows="8"
+                class="w-full border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none transition"></textarea>
         </div>
 
         <div class="flex justify-end">

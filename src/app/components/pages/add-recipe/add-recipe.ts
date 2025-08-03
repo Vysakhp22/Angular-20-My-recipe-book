@@ -1,11 +1,11 @@
-import { NgClass } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ValidationHighlight } from '@core/directives/validation-highlight';
 
 @Component({
   selector: 'app-add-recipe',
-  imports: [ReactiveFormsModule, NgClass],
+  imports: [ReactiveFormsModule, ValidationHighlight],
   templateUrl: './add-recipe.html',
   styles: ``
 })
@@ -58,6 +58,7 @@ protected closeDialog = (refresh = false): void => {
 
 
   protected onSubmit(): void {
+    this.recipeForm.markAllAsTouched(); // Mark all controls as touched to trigger validation
     if (this.recipeForm.valid) {
       // Handle form submission
       console.log(this.recipeForm.value);
