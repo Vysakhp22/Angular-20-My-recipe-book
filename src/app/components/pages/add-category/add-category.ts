@@ -1,13 +1,14 @@
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
+import { ValidationHighlight } from '@core/directives/validation-highlight';
 import { ToastColor } from '@core/models/toast.model';
 import { CategoryService } from '@core/services/category-service';
 import { ToastService } from '@core/services/toast-service';
 
 @Component({
   selector: 'app-add-category',
-  imports: [FormsModule],
+  imports: [FormsModule, ValidationHighlight],
   templateUrl: './add-category.html',
   styles: ``
 })

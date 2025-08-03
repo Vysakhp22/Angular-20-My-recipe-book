@@ -17,9 +17,9 @@
 
   <!-- Input and Save -->
   <div class="flex items-center gap-2 mb-5">
-    <input type="text"
-      class="flex-1 border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#4a3f35] transition"
-      placeholder="Enter category name" [(ngModel)]="categoryName" />
+    <input type="text" appValidationHighlight
+      class="flex-1 border rounded-lg px-4 py-2 text-sm focus:outline-none transition"
+      placeholder="Enter category name" [(ngModel)]="categoryName" [required]="true"/>
     <button (click)="addCategory()"
       class="px-4 py-2 bg-[#4a3f35] text-white text-sm font-semibold rounded-lg transition transform active:scale-95 hover:bg-[#3a312a] focus:outline-none">
       Save
