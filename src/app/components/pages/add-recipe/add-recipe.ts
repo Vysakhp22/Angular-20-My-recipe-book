@@ -37,6 +37,13 @@ export class AddRecipe {
     });
   }
 
+  protected removeIngredient(index: number): void {
+    if (this.ingredients.length > 1) {
+      this.ingredients.removeAt(index);
+    }
+    this.ingredients.updateValueAndValidity();
+  }
+
 
   protected closeDialog: () => void = (refresh = false) => {
     this.dialogRef.close(refresh);
