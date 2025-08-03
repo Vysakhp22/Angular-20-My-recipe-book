@@ -25,10 +25,10 @@
             <div class="w-full flex items-center gap-2">
                 <select formControlName="category"
                     class="select border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#4a3f35] transition">
-                    <option disabled selected>Pick a category</option>
-                    <option>Crimson</option>
-                    <option>Amber</option>
-                    <option>Velvet</option>
+                    <option value="" disabled selected>Pick a category</option>
+                    @for (item of dialogData.categories; track $index) {
+                    <option [value]="item.id">{{ item.name }}</option>
+                    }
                 </select>
                 <input type="text" formControlName="duration"
                     class="border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#4a3f35] transition"
@@ -76,7 +76,7 @@
                 <span class="font-medium">Add Ingedients</span>
             </button> -->
 
-            <textarea class="textarea" placeholder="Enter recipe instructions" formControlName="instructions" rows="8" 
+            <textarea class="textarea" placeholder="Enter recipe instructions" formControlName="instructions" rows="8"
                 class="w-full border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#4a3f35] transition"></textarea>
         </div>
 

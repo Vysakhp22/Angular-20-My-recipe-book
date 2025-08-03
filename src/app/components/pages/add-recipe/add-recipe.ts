@@ -11,7 +11,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 export class AddRecipe {
 
   private readonly dialogRef = inject(MatDialogRef<AddRecipe>);
-  private readonly dialogData = inject(MAT_DIALOG_DATA);
+  public readonly dialogData: { categories: any; } = inject(MAT_DIALOG_DATA);
 
   constructor() {
     this.createForm();

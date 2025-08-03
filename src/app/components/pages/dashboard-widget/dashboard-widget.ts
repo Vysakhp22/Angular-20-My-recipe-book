@@ -28,15 +28,12 @@ export class DashboardWidget implements OnInit {
 
       if (this.categories.value()?.success) {
         this.categoriesCount.set(this.categories.value()?.data?.length || 0);
-      } else {
-        this.categoriesCount.set(0);
+      } else if (this.categories.value()?.error) {
         this.toast.showToast({
           type: ToastColor.error,
           message: this.categories.value()?.error || 'Failed to load categories'
         });
       }
-
-
     });
 
   }
@@ -65,7 +62,9 @@ export class DashboardWidget implements OnInit {
       width: '500px',
       height: 'auto',
       panelClass: 'custom-dialog-container',
-      data: {},
+      data: {
+        categories: this.categories.value()?.data || []
+      },
       disableClose: true,
       autoFocus: false,
     })
