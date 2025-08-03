@@ -1,10 +1,11 @@
+import { NgClass } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-add-recipe',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, NgClass],
   templateUrl: './add-recipe.html',
   styles: ``
 })
@@ -51,9 +52,39 @@ export class AddRecipe {
     this.ingredients.updateValueAndValidity();
   }
 
-
-  protected closeDialog: () => void = (refresh = false) => {
+protected closeDialog = (refresh = false): void => {
     this.dialogRef.close(refresh);
   }
+
+
+  protected onSubmit(): void {
+    if (this.recipeForm.valid) {
+      // Handle form submission
+      console.log(this.recipeForm.value);
+      this.closeDialog(true);
+    } else {
+      // Mark all fields as touched to show validation errors
+      // this.markFormGroupTouched(this.recipeForm);
+    }
+  }
+
+  // private markFormGroupTouched(formGroup: FormGroup): void {
+  //   Object.keys(formGroup.controls).forEach(key => {
+  //     const control = formGroup.get(key);
+  //     control?.markAsTouched();
+
+  //     if (control instanceof FormGroup) {
+  //       this.markFormGroupTouched(control);
+  //     } else if (control instanceof FormArray) {
+  //       control.controls.forEach(arrayControl => {
+  //         if (arrayControl instanceof FormGroup) {
+  //           this.markFormGroupTouched(arrayControl);
+  //         } else {
+  //           arrayControl.markAsTouched();
+  //         }
+  //       });
+  //     }
+  //   });
+  // }
 
 }
