@@ -19,8 +19,8 @@ export class AddCategory {
 
   protected categoryName: string = '';
 
-  protected closeDialog(): void {
-    this.dialogRef.close();
+  protected closeDialog(refresh: boolean = false): void {
+    this.dialogRef.close(refresh);
   }
 
   protected addCategory(): void {
@@ -32,7 +32,7 @@ export class AddCategory {
               type: ToastColor.success,
               message: `Category added successfully!`
             });
-            this.dialogRef.close(response.data);
+            this.closeDialog(true);
           } else {
             this.toaster.showToast({ type: ToastColor.error, message: response.error || 'Failed to add category' });
           }
