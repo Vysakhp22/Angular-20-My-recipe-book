@@ -77,7 +77,7 @@
                 <span class="font-medium">Add Ingedients</span>
             </button> -->
 
-            <textarea class="textarea" placeholder="Enter recipe instructions" formControlName="instructions"
+            <textarea class="textarea" placeholder="Enter recipe instructions" formControlName="instructions" rows="8" 
                 class="w-full border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#4a3f35] transition"></textarea>
         </div>
 
@@ -86,7 +86,7 @@
                 class="px-4 py-2 bg-[#4a3f35] text-white text-sm font-semibold rounded-lg transition transform active:scale-95 hover:bg-[#3a312a] focus:outline-none">
                 Save Recipe
             </button>
-            <button (click)="recipeForm.reset()"
+            <button (click)="createForm()"
                 class="ml-2 px-4 py-2 bg-gray-200 text-gray-700 text-sm font-semibold rounded-lg transition transform active:scale-95 hover:bg-gray-300 focus:outline-none">
                 Cancel
             </button>

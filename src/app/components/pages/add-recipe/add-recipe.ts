@@ -1,7 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { C } from 'node_modules/@angular/cdk/portal-directives.d-DbeNrI5D';
 
 @Component({
   selector: 'app-add-recipe',
@@ -14,17 +13,25 @@ export class AddRecipe {
   private readonly dialogRef = inject(MatDialogRef<AddRecipe>);
   private readonly dialogData = inject(MAT_DIALOG_DATA);
 
+  constructor() {
+    this.createForm();
+  }
+
   protected get ingredients(): FormArray {
     return this.recipeForm.get('ingredients') as FormArray;
   }
 
-  protected recipeForm = new FormGroup({
-    title: new FormControl('', [Validators.required]),
-    category: new FormControl('', [Validators.required]),
-    duration: new FormControl('', [Validators.required]),
-    ingredients: new FormArray([this.addIngredientGroup()]),
-    instructions: new FormControl('', [Validators.required]),
-  });
+  protected recipeForm!: FormGroup;
+
+  protected createForm(): void {
+    this.recipeForm = new FormGroup({
+      title: new FormControl('', [Validators.required]),
+      category: new FormControl('', [Validators.required]),
+      duration: new FormControl('', [Validators.required]),
+      ingredients: new FormArray([this.addIngredientGroup()]),
+      instructions: new FormControl('', [Validators.required]),
+    });
+  }
 
   protected addIngredient(): void {
     this.ingredients.push(this.addIngredientGroup());
