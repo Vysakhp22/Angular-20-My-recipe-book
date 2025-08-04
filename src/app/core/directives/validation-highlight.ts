@@ -1,6 +1,6 @@
 import { AfterViewInit, Directive, ElementRef, inject, input, OnDestroy } from '@angular/core';
 import { NgControl } from '@angular/forms';
-import { Subscription } from 'rxjs';
+import { merge, Subscription } from 'rxjs';
 
 @Directive({
   selector: '[appValidationHighlight]'
@@ -33,7 +33,7 @@ export class ValidationHighlight implements AfterViewInit, OnDestroy {
 
     const control = this.control?.control;
     if (control) {
-      this.hightLightSubscription = control.valueChanges.subscribe(() => {
+      this.hightLightSubscription = merge(control.statusChanges, control.valueChanges).subscribe(() => {
         this.updateHighlight();
       });
     }

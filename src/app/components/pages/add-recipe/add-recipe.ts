@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ValidationHighlight } from '@core/directives/validation-highlight';
+import { CommonService } from '@core/services/common-service';
 
 @Component({
   selector: 'app-add-recipe',
@@ -13,6 +14,7 @@ export class AddRecipe {
 
   private readonly dialogRef = inject(MatDialogRef<AddRecipe>);
   public readonly dialogData: { categories: any; } = inject(MAT_DIALOG_DATA);
+  private readonly commonService = inject(CommonService);
 
   constructor() {
     this.createForm();
@@ -52,13 +54,12 @@ export class AddRecipe {
     this.ingredients.updateValueAndValidity();
   }
 
-protected closeDialog = (refresh = false): void => {
+  protected closeDialog = (refresh = false): void => {
     this.dialogRef.close(refresh);
   }
 
-
   protected onSubmit(): void {
-    this.recipeForm.markAllAsTouched(); // Mark all controls as touched to trigger validation
+    this.commonService.triggerValidationUpdate(this.recipeForm);
     if (this.recipeForm.valid) {
       // Handle form submission
       console.log(this.recipeForm.value);
