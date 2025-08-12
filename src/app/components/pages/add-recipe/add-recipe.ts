@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ValidationHighlight } from '@core/directives/validation-highlight';
+import { IRecipe } from '@core/models/commom.model';
 import { CommonService } from '@core/services/common-service';
 
 @Component({
@@ -17,24 +18,21 @@ export class AddRecipe {
   private readonly commonService = inject(CommonService);
 
   constructor() {
-    this.createForm();
+
   }
 
   protected get ingredients(): FormArray {
     return this.recipeForm.get('ingredients') as FormArray;
   }
 
-  protected recipeForm!: FormGroup;
+  protected recipeForm = new FormGroup({
+    title: new FormControl('', [Validators.required]),
+    category: new FormControl('', [Validators.required]),
+    duration: new FormControl('', [Validators.required]),
+    ingredients: new FormArray([this.addIngredientGroup()]),
+    instructions: new FormControl('', [Validators.required]),
+  });
 
-  protected createForm(): void {
-    this.recipeForm = new FormGroup({
-      title: new FormControl('', [Validators.required]),
-      category: new FormControl('', [Validators.required]),
-      duration: new FormControl('', [Validators.required]),
-      ingredients: new FormArray([this.addIngredientGroup()]),
-      instructions: new FormControl('', [Validators.required]),
-    });
-  }
 
   protected addIngredient(): void {
     this.ingredients.push(this.addIngredientGroup());
@@ -61,6 +59,7 @@ export class AddRecipe {
   protected onSubmit(): void {
     this.commonService.triggerValidationUpdate(this.recipeForm);
     if (this.recipeForm.valid) {
+      const recipeData: Partial<IRecipe> = this.recipeForm.value;
       // Handle form submission
       console.log(this.recipeForm.value);
       this.closeDialog(true);

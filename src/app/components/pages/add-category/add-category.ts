@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { ValidationHighlight } from '@core/directives/validation-highlight';
@@ -19,12 +19,14 @@ export class AddCategory {
   protected readonly toaster = inject(ToastService);
 
   protected categoryName: string = '';
+  protected showError = signal(false);
 
   protected closeDialog(refresh: boolean = false): void {
     this.dialogRef.close(refresh);
   }
 
   protected addCategory(): void {
+    this.showError.set(!this.categoryName.trim());
     if (this.categoryName.trim()) {
       this.categoryService.addCategoryAsync(this.categoryName.trim()).subscribe({
         next: (response) => {
